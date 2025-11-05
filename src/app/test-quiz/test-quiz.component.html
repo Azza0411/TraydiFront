@@ -1,0 +1,35 @@
+<div class="quiz-container" *ngIf="!isLoading && questions.length">
+  <h2>Quiz pour {{ username }}</h2>
+
+  <form (ngSubmit)="submitQuiz()">
+    <div *ngFor="let q of questions" class="question-block">
+      <h4>{{ q.questionText }}</h4>
+
+      <div *ngFor="let opt of q.options">
+        <label>
+          <input
+            type="checkbox"
+            (change)="toggleAnswer(q.id, opt.id)"
+          />
+          {{ opt.text }}
+        </label>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">Soumettre</button>
+  </form>
+</div>
+
+<div *ngIf="isLoading" class="loading">
+  <p>Chargement des questions...</p>
+</div>
+
+<div *ngIf="result" class="result">
+  <h3>Résultat du test</h3>
+  <p><strong>Score technique :</strong> {{ result.techScore }}</p>
+  <p><strong>Score psychologique :</strong> {{ result.psyScore }}</p>
+  <p><strong>Score d’expérience :</strong> {{ result.expScore }}</p>
+  <p><strong>TSI :</strong> {{ result.tsi }}</p>
+  <p><strong>Niveau :</strong> {{ result.niveau }}</p>
+  <p><strong>Badge :</strong> {{ result.badge }}</p>
+</div>

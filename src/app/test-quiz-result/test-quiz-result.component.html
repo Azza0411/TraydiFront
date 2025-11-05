@@ -1,0 +1,22 @@
+<div class="result-container" *ngIf="result; else noResult">
+  <h2>🎯 Résultat du Test</h2>
+  <p><strong>Date :</strong> {{ result.dateTest | date: 'short' }}</p>
+
+  <div class="score-section">
+    <p><strong>Score Technique :</strong> {{ result.techScore }}</p>
+    <p><strong>Score Psychologique :</strong> {{ result.psyScore }}</p>
+    <p><strong>Score Expérience :</strong> {{ result.expScore }}</p>
+    <p><strong>TSI :</strong> {{ result.tsi }}</p>
+  </div>
+
+  <div class="level-section">
+    <p><strong>Niveau :</strong> {{ result.niveau }}</p>
+    <p><strong>Badge :</strong> 🏅 {{ result.badge }}</p>
+  </div>
+
+  <button class="btn" (click)="goBack()">Retour à l'accueil</button>
+</div>
+
+<ng-template #noResult>
+  <p>Aucun résultat trouvé.</p>
+</ng-template>

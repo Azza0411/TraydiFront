@@ -12,7 +12,6 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   addUserWithConfPassword(formData: FormData): Observable<any> {
-    // Important : ne pas mettre Content-Type ici, Angular le gère automatiquement pour multipart
     return this.http.post(`${this.baseUrl}/addwithconfpassword`, formData, { responseType: 'text' });
   }
 }
@@ -36,7 +35,7 @@ export class SignupComponent {
     cin: 0,
     telephone: 0,
     age: 0,
-    roleName: '' // correspond au champ roleName du DTO
+    roleName: ''
   };
 
   selectedFile: File | null = null;
@@ -49,21 +48,24 @@ export class SignupComponent {
 
   onSubmit() {
     const formData = new FormData();
-
-    // ✅ Transformer l'objet user en Blob JSON pour Spring @RequestPart
-    formData.append(
-      'user',
-      new Blob([JSON.stringify(this.user)], { type: 'application/json' })
-    );
-
+    formData.append('user', new Blob([JSON.stringify(this.user)], { type: 'application/json' }));
     if (this.selectedFile) {
       formData.append('image', this.selectedFile, this.selectedFile.name);
     }
 
     this.userService.addUserWithConfPassword(formData).subscribe({
-      next: (response) => {
+      next: () => {
         alert('✅ Compte créé avec succès !');
-        this.router.navigate(['/login']);
+
+        // 🔹 Stockage du username dans localStorage pour le quiz
+        localStorage.setItem('username', this.user.username);
+
+        if (this.user.roleName === 'TRADER') {
+          alert('🎯 Vous allez passer un petit test pour évaluer votre niveau.');
+          this.router.navigate(['/test-quiz']);
+        } else {
+          this.router.navigate(['/login']);
+        }
       },
       error: (error) => {
         console.error(error);

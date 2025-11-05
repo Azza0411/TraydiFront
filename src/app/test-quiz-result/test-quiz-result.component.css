@@ -1,0 +1,30 @@
+.result-container {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 2rem;
+  background: #f8f8f8;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.score-section, .level-section {
+  margin: 1rem 0;
+}
+
+h2 {
+  color: #2b6cb0;
+}
+
+.btn {
+  background: #2b6cb0;
+  color: white;
+  border: none;
+  padding: 0.7rem 1.2rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #265999;
+}
